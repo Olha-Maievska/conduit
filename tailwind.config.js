@@ -16,7 +16,10 @@ module.exports = {
         } 
       },
       spacing: {
-        navItem: '0.425rem'
+        navItem: '0.425rem',
+        '0.3': '0.3rem',
+        '0.2': '0.2rem',
+        tag: '0.6rem',
       },
       boxShadow: {
         banner: 'inset 0 8px 8px -8px rgb(0 0 0 / 30%), inset 0 -8px 8px -8px rgb(0 0 0 / 30%)'
@@ -29,6 +32,10 @@ module.exports = {
         articleBody: '1.2rem',
         articleTitle: '2.8rem',
         logo: '3.5rem',
+      },
+      borderRadius: {
+        buttonSm: '0.2rem',
+        tag: '10rem',
       },
     },
   },

@@ -6,4 +6,11 @@
   html {
     font-family: "Source Sans 3", sans-serif;
   }
+  a {
+    @apply text-theme-green;
+  }
+  a:hover {
+    @apply text-theme-dark;
+    @apply underline;
+  }
 }/*# sourceMappingURL=index.css.map */
