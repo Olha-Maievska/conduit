@@ -2,44 +2,52 @@ import { FC } from 'react'
 import { Link } from 'react-router-dom'
 import FavoriteButton from '../favoriteBtn/favoriteButton.components'
 import TagList from '../tagList/tagList.compnents'
+import { FeedArticle } from '../../api/dto/globalFeedIn'
+import { DateTime } from 'luxon'
 
-interface ArticleProps {}
+interface ArticleProps extends FeedArticle {}
 
-const Article: FC<ArticleProps> = () => {
+const Article: FC<ArticleProps> = ({
+  author,
+  createdAt,
+  favoritesCount,
+  title,
+  description,
+  tagList,
+}) => {
   return (
     <article>
       <div className="border-t border-black/10 py-6">
-        <div className="mb-4 font-light flex">
-          <Link to="/@nekwin">
-            <img
-              src=""
-              alt="nekwin"
-              className="inline-block h-8 w-8 rounded-full"
-            />
-          </Link>
-          <div className="mr-6 ml-0.3 leading-4 inline-flex flex-col">
-            <Link to="" className="font-medium">
-              Olha Maievska
+        <div className="mb-4 font-light flex justify-between">
+          <div className="flex">
+            <Link to={`/@${author.username}`}>
+              <img
+                src={author.image}
+                alt={`${author.username} avatar`}
+                className="inline-block h-8 w-8 rounded-full"
+              />
             </Link>
-            <span className="text-theme-blue text-date">9 october, 2022</span>
+            <div className="mr-6 ml-0.3 leading-4 inline-flex flex-col">
+              <Link to="" className="font-medium">
+                {author.username}
+              </Link>
+              <span className="text-theme-blue text-date">
+                {DateTime.fromISO(createdAt).toLocaleString(DateTime.DATE_FULL)}
+              </span>
+            </div>
           </div>
-          <FavoriteButton />
+          <FavoriteButton count={favoritesCount} />
         </div>
         <Link to="/" className="hover:no-underline">
           <h1 className="mb-1 font-semibold text-2xl text-theme-dark">
-            Some title
+            {title}
           </h1>
-          <p className="text-theme-blue font-light mb-1">
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. A voluptate
-            cupiditate assumenda eius quos! Eum sequi deserunt adipisci, ad
-            ducimus dolorum soluta nihil temporibus hic suscipit et! Voluptate,
-            saepe harum?
-          </p>
+          <p className="text-theme-blue font-light mb-1">{description}</p>
           <div className="flex justify-between">
-            <span className="text-theme-teal font-light text-date">
+            <span className="text-theme-teal font-light text-date font-normal">
               Read more
             </span>
-            <TagList />
+            <TagList list={tagList} />
           </div>
         </Link>
       </div>
