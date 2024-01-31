@@ -2,30 +2,26 @@ import Container from 'common/components/container/container.components'
 import { FC, useState } from 'react'
 import ArticleList from '../articleList/articleList.components'
 import FeedToggle from '../feedToggle/feedToggle.components'
-import { useGetGlobalFeedQuery } from '../../api/repository'
 import ReactPaginate from 'react-paginate'
 import { FEED_PAGE_SIZE } from '../../consts'
-import { useSearchParams } from 'react-router-dom'
 import { serializeSearchParams } from 'utils/router'
 import { TagCloud } from '../tagCloud/tagCloud.components'
+import { FeedData } from '../../api/repository'
+import { useSearchParams } from 'react-router-dom'
 
-interface FeedProps {}
+interface FeedProps {
+  isLoading: boolean
+  isFetching: boolean
+  error: any
+  data: FeedData | undefined
+}
 
-const Feed: FC<FeedProps> = () => {
+const Feed: FC<FeedProps> = ({ error, isFetching, isLoading, data }) => {
   const [searchParams, setSearchParams] = useSearchParams()
-  const [page, setPage] = useState(
-    searchParams.get('page') ? Number(searchParams.get('page')) : 0
-  )
-
+  const page = searchParams.get('page') ? Number(searchParams.get('page')) : 0
   const handlePage = ({ selected }: { selected: number }) => {
-    setPage(selected)
     setSearchParams(serializeSearchParams({ page: String(selected) }))
   }
-
-  const { data, error, isLoading, isFetching } = useGetGlobalFeedQuery({
-    page,
-    tag: searchParams.get('tag'),
-  })
 
   if (isLoading || isFetching) {
     return <Container>Feed loading...</Container>
