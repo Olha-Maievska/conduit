@@ -9,7 +9,7 @@ export const axiosBaseQuery =
   ): BaseQueryFn<
     {
       url: string
-      method: AxiosRequestConfig['method']
+      method?: AxiosRequestConfig['method']
       data?: AxiosRequestConfig['data']
       params?: AxiosRequestConfig['params']
       headers?: AxiosRequestConfig['headers']
@@ -17,7 +17,7 @@ export const axiosBaseQuery =
     unknown,
     unknown
   > =>
-  async ({ url, method, data, params, headers }) => {
+  async ({ url, method = 'get', data, params, headers }) => {
     try {
       const result = await axios({
         url: baseUrl + url,

@@ -1,20 +1,46 @@
 import { FC } from 'react'
+import clsx from 'clsx'
+import { Link } from 'react-router-dom'
 
-interface TagListProps {
-  list: string[]
+enum TagListStyle {
+  DARK = 'DARK',
+  LIGHT = 'LIGHT',
 }
 
-const TagList: FC<TagListProps> = ({ list }) => {
+interface TagListProps {
+  list: string[] | undefined
+  itemStyle?: keyof typeof TagListStyle
+  itemAs?: 'li' | 'a'
+}
+
+const TagList: FC<TagListProps> = ({
+  list = [],
+  itemStyle = TagListStyle.LIGHT,
+  itemAs = 'li',
+}) => {
+  const itemClasses = clsx(
+    'text-date border mr-1 mb-1 px-tag rounded-tag font-normal',
+    {
+      'border-theme-gray text-theme-dark': itemStyle === TagListStyle.LIGHT,
+      'bg-theme-green border-theme-green text-white hover:bg-teal-950 hover:border-teal-950':
+        itemStyle === TagListStyle.DARK,
+      'hover:text-white hover:no-underline':
+        itemStyle === TagListStyle.DARK && itemAs === 'a',
+    }
+  )
   return (
-    <ul className="flex">
-      {list.map((tag) => (
-        <li
-          className="font-light text-date border border-theme-gray text-theme-blue mr-1 mb-0.2 px-tag rounded-tag"
-          key={tag}
-        >
-          {tag}
-        </li>
-      ))}
+    <ul className="flex flex-wrap">
+      {list.map((tag) => {
+        return itemAs === 'li' ? (
+          <li className={itemClasses} key={tag}>
+            {tag}
+          </li>
+        ) : (
+          <Link to={`/?tag=${tag}`} className={itemClasses} key={tag}>
+            {tag}
+          </Link>
+        )
+      })}
     </ul>
   )
 }

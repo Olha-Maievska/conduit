@@ -16,10 +16,11 @@ module.exports = {
         } 
       },
       spacing: {
-        navItem: '0.425rem',
-        '0.3': '0.3rem',
         '0.2': '0.2rem',
+        '0.3': '0.3rem',
+        navItem: '0.425rem',
         tag: '0.6rem',
+        '25': '6.25rem'
       },
       boxShadow: {
         banner: 'inset 0 8px 8px -8px rgb(0 0 0 / 30%), inset 0 -8px 8px -8px rgb(0 0 0 / 30%)'
