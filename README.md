@@ -1,1 +1,1 @@
-# Rsbuild Project
+# Conduit - educational project
